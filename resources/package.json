@@ -1,27 +1,23 @@
 {
     "author": {
-        "author_id": "timmehtimmeh",
-        "display_name": "Tim Schoenmackers",
-        "email": "timmehtimmeh@gmail.com",
-        "website": "https://github.com/timmehtimmeh/Cura-Dremel-Plugin"
+        "author_id": "mirdoc",
+        "display_name": "mirdoc",
+        "email": "mirdoc@gmail.com",
+        "website": "https://github.com/mirdoc/Cura-CubeProPrinterPlugin"
     },
-    "description": "Enables the user to add the Dremel Ideabuilder 3D20, 3D40, and 3D45 printers to Cura and export the proprietary .g3drem files.",
-    "display_name": "Dremel Printer Plugin",
-    "package_id": "DremelPrinterPlugin",
+    "description": "Enables the user to add the 3D Systems CubePro, CubePro Duo, and CubePro Trio printers to Cura and export the proprietary .cubepro files.",
+    "display_name": "CubePro Printer Plugin",
+    "package_id": "CubeProPrinterPlugin",
     "package_type": "plugin",
     "package_version": "0.8.1",
     "sdk_version": 8,
     "tags": [
-        "Dremel",
+        "3DSystems",
         "plugin",
-        "3D20",
-        "3D40",
-        "3D45",
-        "IdeaBuilder",
-        "extension",
-        "Dremel3D20",
-        "Dremel3D40",
-        "Dremel3D45"
+        "CubePro",
+        "CubeProDuo",
+        "CubeProTrio",
+        "extension"
     ],
-    "website": "https://github.com/timmehtimmeh/Cura-Dremel-Plugin"
+    "website": "https://github.com/mirdoc/Cura-CubeProPrinterPlugin"
 }

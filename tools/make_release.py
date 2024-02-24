@@ -5,11 +5,11 @@
 #  installation into cura as well as making the necessary zip file for
 #  uploading to contribute.ultimaker.com for release in the cura marketplace
 #
-# Written by Tim Schoenmackers
+# Written by Tim Schoenmackers and mirdoc
 #
 # This source is released under the terms of the LGPLv3 or higher.
 # The full text of the LGPLv3 License can be found here:
-# https://github.com/timmehtimmeh/Cura-Dremel-3D20-Plugin/blob/master/LICENSE
+# https://github.com/mirdoc/Cura-CubeProPrinterPlugin/blob/master/LICENSE
 #
 #
 # Requirements:
@@ -25,14 +25,14 @@ import shutil
 import zipfile
 import json
 
-with open('../plugins/DremelPrinterPlugin/plugin.json') as json_file:
+with open('../plugins/CubeProPrinterPlugin/plugin.json') as json_file:
     plugin_json = json.load(json_file)
     json_file.close()
 
-RELEASE_DIR = os.path.abspath('../RELEASE/DremelPrinterPlugin')
-CURA_PACKAGE_FILE = os.path.abspath('../RELEASE/Cura-Dremel-Plugin-'+str(plugin_json["version"])+'.curapackage')
-ULTIMAKER_ZIP = os.path.abspath('../RELEASE/DremelPrinterPlugin.zip')
-PLUGIN_DIR = os.path.join(RELEASE_DIR,'files/plugins/DremelPrinterPlugin')
+RELEASE_DIR = os.path.abspath('../RELEASE/CubeProPrinterPlugin')
+CURA_PACKAGE_FILE = os.path.abspath('../RELEASE/CubeProPrinterPlugin-'+str(plugin_json["version"])+'.curapackage')
+ULTIMAKER_ZIP = os.path.abspath('../RELEASE/CubeProPrinterPlugin.zip')
+PLUGIN_DIR = os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin')
 
 WKHTMLTOPDF_DIR = "c:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
 
@@ -47,7 +47,7 @@ if(os.path.exists(RELEASE_DIR)):
 # delete existing files
 for item in ['../README.html',
             '../README.pdf',
-            os.path.join(RELEASE_DIR,'files/plugins/DremelPrinterPlugin/DremelPrinterPlugin.zip'),
+            os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin/CubeProPrinterPlugin.zip'),
             CURA_PACKAGE_FILE]:
     print('Checking '+ os.path.abspath(item))
     if os.path.exists(os.path.abspath(item)):
@@ -61,7 +61,7 @@ if not os.path.exists(RELEASE_DIR):
 dirs = [RELEASE_DIR,
         os.path.join(RELEASE_DIR,'files'),
         os.path.join(RELEASE_DIR,'files/plugins'),
-        os.path.join(RELEASE_DIR,'files/plugins/DremelPrinterPlugin')
+        os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin')
         ]
 for item in dirs:
     if not os.path.exists(item):
@@ -69,70 +69,56 @@ for item in dirs:
 
 ################################
 ## Step 2
-## copy the dremel printer definitions,
+## copy the cubepro printer definitions,
 ## materials, the platform stl file,
 ## and the quality files
 ################################
-copyList = ['../resources/definitions/Dremel3D20.def.json',
-           '../resources/definitions/Dremel3D40.def.json',
-           '../resources/definitions/Dremel3D45.def.json',
-           '../resources/extruders/dremel_3d20_extruder_0.def.json',
-           '../resources/extruders/Dremel_3D40_extruder_0.def.json',
-           '../resources/extruders/Dremel_3D45_extruder_0.def.json',
-           '../resources/materials/dremel_pla.xml.fdm_material',
-           '../resources/materials/dremel_pla_0.5kg.xml.fdm_material',
-           '../resources/meshes/dremel_3D20_platform.stl',
-           '../resources/meshes/Dremel_3D40_platform.stl',
-           '../resources/meshes/Dremel_3D45_platform.stl',
-           '../resources/materials/dremel_eco_abs.xml.fdm_material',
-           '../resources/materials/dremel_nylon.xml.fdm_material',
-           '../resources/materials/dremel_petg.xml.fdm_material']
+copyList = ['../resources/definitions/CubePro.def.json',
+           '../resources/definitions/CubeProDuo.def.json',
+           '../resources/definitions/CubeProTrio.def.json',
+           '../resources/extruders/CubePro_extruder_0.def.json',
+           '../resources/extruders/CubePro_extruder_1.def.json',
+           '../resources/extruders/CubePro_extruder_2.def.json',
+           '../resources/meshes/CubePro_platform.stl']
 for item in copyList:
     shutil.copy2(os.path.abspath(item),PLUGIN_DIR)
 
-shutil.copytree(os.path.abspath('../resources/quality/dremel_3d20'),
-                os.path.join(PLUGIN_DIR,'dremel_3d20'))
+shutil.copytree(os.path.abspath('../resources/quality/CubePro'),
+                os.path.join(PLUGIN_DIR,'CubePro'))
 
-shutil.copytree(os.path.abspath('../resources/quality/Dremel3D40'),
-                os.path.join(PLUGIN_DIR,'Dremel3D40'))
+shutil.copytree(os.path.abspath('../resources/quality/CubeProDuo'),
+                os.path.join(PLUGIN_DIR,'CubeProDuo'))
 
-shutil.copytree(os.path.abspath('../resources/quality/Dremel3D45'),
-                os.path.join(PLUGIN_DIR,'Dremel3D45'))
+shutil.copytree(os.path.abspath('../resources/quality/CubeProTrio'),
+                os.path.join(PLUGIN_DIR,'CubeProTrio'))
 
 ################################
 ## Step 3
 ## zip the files copied above
 ################################
-internal_zip_file_name = os.path.join(PLUGIN_DIR,'DremelPrinterPlugin.zip')
+internal_zip_file_name = os.path.join(PLUGIN_DIR,'CubeProPrinterPlugin.zip')
 z = zipfile.ZipFile(internal_zip_file_name,'w', zipfile.ZIP_DEFLATED)
-zipList = [os.path.join(PLUGIN_DIR,'Dremel3D20.def.json'),
-           os.path.join(PLUGIN_DIR,'dremel_3d20_extruder_0.def.json'),
-           os.path.join(PLUGIN_DIR,'dremel_pla.xml.fdm_material'),
-           os.path.join(PLUGIN_DIR,'dremel_pla_0.5kg.xml.fdm_material'),
-           os.path.join(PLUGIN_DIR,'dremel_3D20_platform.stl'),
-           os.path.join(PLUGIN_DIR,'Dremel3D40.def.json'),
-           os.path.join(PLUGIN_DIR,'Dremel_3D40_extruder_0.def.json'),
-           os.path.join(PLUGIN_DIR,'Dremel_3D40_platform.stl'),
-           os.path.join(PLUGIN_DIR,'Dremel3D45.def.json'),
-           os.path.join(PLUGIN_DIR,'Dremel_3D45_extruder_0.def.json'),
-           os.path.join(PLUGIN_DIR,'dremel_eco_abs.xml.fdm_material'),
-           os.path.join(PLUGIN_DIR,'dremel_nylon.xml.fdm_material'),
-           os.path.join(PLUGIN_DIR,'dremel_petg.xml.fdm_material'),
-           os.path.join(PLUGIN_DIR,'Dremel_3D45_platform.stl')]
+zipList = [os.path.join(PLUGIN_DIR,'CubePro.def.json'),
+           os.path.join(PLUGIN_DIR,'CubeProDuo.def.json'),
+           os.path.join(PLUGIN_DIR,'CubeProTrio.def.json'),
+           os.path.join(PLUGIN_DIR,'CubePro_extruder_0.def.json'),
+           os.path.join(PLUGIN_DIR,'CubePro_extruder_1.def.json'),
+           os.path.join(PLUGIN_DIR,'CubePro_extruder_2.def.json'),
+           os.path.join(PLUGIN_DIR,'CubePro_platform.stl')]
 for item in zipList:
     z.write(item,os.path.basename(item));
-path = os.path.join(PLUGIN_DIR,'dremel_3d20')
+path = os.path.join(PLUGIN_DIR,'CubePro')
 for root, dirs, files in os.walk(path):
     for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'dremel_3d20', file),os.path.join('dremel_3d20',file))
-path = os.path.join(PLUGIN_DIR,'Dremel3D40')
+        z.write(os.path.join(PLUGIN_DIR,'CubePro', file),os.path.join('CubePro',file))
+path = os.path.join(PLUGIN_DIR,'CubeProDuo')
 for root, dirs, files in os.walk(path):
     for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'Dremel3D40', file),os.path.join('Dremel3D40',file))
-path = os.path.join(PLUGIN_DIR,'Dremel3D45')
+        z.write(os.path.join(PLUGIN_DIR,'CubeProDuo', file),os.path.join('CubeProDuo',file))
+path = os.path.join(PLUGIN_DIR,'CubeProTrio')
 for root, dirs, files in os.walk(path):
     for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'Dremel3D45', file),os.path.join('Dremel3D45',file))
+        z.write(os.path.join(PLUGIN_DIR,'CubeProTrio', file),os.path.join('CubeProTrio',file))
 ################################
 ## Step 4
 ## now delete the files that were copied in Step 2
@@ -142,9 +128,9 @@ for item in zipList:
         #print('Deleting ' + os.path.abspath(item))
         os.remove(os.path.abspath(item))
 
-shutil.rmtree(os.path.join(PLUGIN_DIR,'dremel_3d20'))
-shutil.rmtree(os.path.join(PLUGIN_DIR,'Dremel3D40'))
-shutil.rmtree(os.path.join(PLUGIN_DIR,'Dremel3D45'))
+shutil.rmtree(os.path.join(PLUGIN_DIR,'CubePro'))
+shutil.rmtree(os.path.join(PLUGIN_DIR,'CubeProDuo'))
+shutil.rmtree(os.path.join(PLUGIN_DIR,'CubeProTrio'))
 ################################
 ## Step 5
 ## Create the README.pdf file from
@@ -161,7 +147,7 @@ os.chdir(currDir)
 ## Step 6
 ## Copy the remaining plugin files
 ################################
-src_dir=os.path.abspath('../plugins/DremelPrinterPlugin')
+src_dir=os.path.abspath('../plugins/CubeProPrinterPlugin')
 src_files = os.listdir(src_dir)
 for file_name in src_files:
     full_file_name = os.path.join(src_dir, file_name)
@@ -199,7 +185,7 @@ z = zipfile.ZipFile(ULTIMAKER_ZIP,'w', zipfile.ZIP_DEFLATED)
 for root, dirs, files in os.walk(PLUGIN_DIR):
     for file in files:
         print(os.path.join(root,file))
-        z.write(os.path.join(root,file),os.path.join(root,file).replace(PLUGIN_DIR, "DremelPrinterPlugin"))
+        z.write(os.path.join(root,file),os.path.join(root,file).replace(PLUGIN_DIR, "CubeProPrinterPlugin"))
 
 
 ################################

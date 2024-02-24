@@ -1,0 +1,13 @@
+{
+  "name": "CubePro Printer Plugin",
+  "author": "mirdoc",
+  "version": "0.1.0",
+  "description": "Enables the user to add the 3D Systems CubePro, CubePro Duo, and CubePro Trio printers to Cura and export the proprietary .cubepro files.",
+  "api": 8,
+  "supported_sdk_versions": [
+    "8.0.0",
+    "8.1.0",
+    "8.2.0"
+  ],
+  "i18n-catalog": "cura"
+}

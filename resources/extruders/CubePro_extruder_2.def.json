@@ -1,0 +1,21 @@
+{
+    "id": "CubePro_extruder_2",
+    "inherits": "fdmextruder",
+    "metadata": {
+        "machine": "CubePro",
+        "position": "2"
+    },
+    "name": "Extruder3",
+    "overrides": {
+        "extruder_nr": {
+            "default_value": 2
+        },
+        "machine_nozzle_size": {
+            "default_value": 0.35
+        },
+        "material_diameter": {
+            "default_value": 1.75
+        }
+    },
+    "version": 2
+}
