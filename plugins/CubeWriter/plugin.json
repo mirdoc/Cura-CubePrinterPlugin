@@ -1,0 +1,13 @@
+{
+  "name": "CubeWriter",
+  "author": "mirdoc",
+  "version": "0.2.0",
+  "description": "Enables the user to export the proprietary .cube print files for 3D Systems Cube 3D",
+  "api": 8,
+  "supported_sdk_versions": [
+    "8.0.0",
+    "8.1.0",
+    "8.2.0"
+  ],
+  "i18n-catalog": "cura"
+}

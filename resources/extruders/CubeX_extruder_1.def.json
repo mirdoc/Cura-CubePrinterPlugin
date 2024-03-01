@@ -1,0 +1,33 @@
+{
+    "id": "CubeX_extruder_1",
+    "inherits": "fdmextruder",
+    "metadata": {
+        "machine": "CubeX",
+        "position": "1"
+    },
+    "name": "Extruder 2",
+    "overrides": {
+        "extruder_nr": {
+            "default_value": 1
+        },
+        "machine_nozzle_size": {
+            "default_value": 0.35
+        },
+        "material_diameter": {
+            "default_value": 1.75
+        },
+        "extruder_prime_pos_y": {
+            "default_value": 157
+        },
+        "extruder_prime_pos_x": {
+            "default_value": 118
+        },
+        "machine_extruder_start_code": {
+            "default_value": "M542\nM204 S{print_temperature}\nM552 P775 S25\nM543"
+        },
+        "machine_extruder_end_code": {
+            "default_value": "M562 P550 S500"
+        }
+    },
+    "version": 2
+}

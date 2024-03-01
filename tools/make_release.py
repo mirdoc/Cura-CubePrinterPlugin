@@ -9,7 +9,7 @@
 #
 # This source is released under the terms of the LGPLv3 or higher.
 # The full text of the LGPLv3 License can be found here:
-# https://github.com/mirdoc/Cura-CubeProPrinterPlugin/blob/master/LICENSE
+# https://github.com/mirdoc/Cura-CubePrinterPlugin/blob/master/LICENSE
 #
 #
 # Requirements:
@@ -25,16 +25,21 @@ import shutil
 import zipfile
 import json
 
-with open('../plugins/CubeProPrinterPlugin/plugin.json') as json_file:
+PLUGIN_NAME = 'CubePrinterPlugin'
+
+with open(f'../plugins/{PLUGIN_NAME}/plugin.json') as json_file:
     plugin_json = json.load(json_file)
     json_file.close()
 
-RELEASE_DIR = os.path.abspath('../RELEASE/CubeProPrinterPlugin')
-CURA_PACKAGE_FILE = os.path.abspath('../RELEASE/CubeProPrinterPlugin-'+str(plugin_json["version"])+'.curapackage')
-ULTIMAKER_ZIP = os.path.abspath('../RELEASE/CubeProPrinterPlugin.zip')
-PLUGIN_DIR = os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin')
+RELEASE_DIR = os.path.abspath('../RELEASE/' + PLUGIN_NAME)
+RELEASE_PLUGINS_DIR = os.path.abspath(os.path.join(RELEASE_DIR, 'files/plugins'))
+CURA_PACKAGE_FILE = os.path.abspath('../RELEASE/' + PLUGIN_NAME + '-' + str(plugin_json["version"]) + '.curapackage')
+ULTIMAKER_ZIP = os.path.abspath('../RELEASE/' + PLUGIN_NAME + '.zip')
+PLUGIN_DIR = os.path.join(RELEASE_DIR, 'files/plugins/' + PLUGIN_NAME)
 
 WKHTMLTOPDF_DIR = "c:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
+
+ALL_PLUGINS = [PLUGIN_NAME, 'CubeWriter', 'Cube3Writer', 'CubexWriter', 'CubeproWriter']
 
 ################################
 ## Step 1
@@ -45,24 +50,25 @@ if(os.path.exists(RELEASE_DIR)):
     shutil.rmtree(RELEASE_DIR)
 
 # delete existing files
-for item in ['../README.html',
-            '../README.pdf',
-            os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin/CubeProPrinterPlugin.zip'),
-            CURA_PACKAGE_FILE]:
+for item in ['../README.html', '../README.pdf', CURA_PACKAGE_FILE,
+             os.path.join(RELEASE_DIR, 'files/plugins/' + PLUGIN_NAME + '/' + PLUGIN_NAME + '.zip')]:
     print('Checking '+ os.path.abspath(item))
     if os.path.exists(os.path.abspath(item)):
-        #print('Deleting ' + os.path.abspath(item))
+        ('Deleting ' + os.path.abspath(item))
         os.remove(os.path.abspath(item))
 
 # make new dirs
 if not os.path.exists(RELEASE_DIR):
     os.makedirs(RELEASE_DIR)
 
-dirs = [RELEASE_DIR,
-        os.path.join(RELEASE_DIR,'files'),
-        os.path.join(RELEASE_DIR,'files/plugins'),
-        os.path.join(RELEASE_DIR,'files/plugins/CubeProPrinterPlugin')
-        ]
+dirs = [
+    RELEASE_DIR,
+    os.path.join(RELEASE_DIR, 'files'),
+    os.path.join(RELEASE_DIR, RELEASE_PLUGINS_DIR)]
+    
+for item in ALL_PLUGINS:
+    dirs.append(os.path.join(RELEASE_PLUGINS_DIR, item))
+
 for item in dirs:
     if not os.path.exists(item):
         os.makedirs(item)
@@ -73,64 +79,68 @@ for item in dirs:
 ## materials, the platform stl file,
 ## and the quality files
 ################################
-copyList = ['../resources/definitions/CubePro.def.json',
-           '../resources/definitions/CubeProDuo.def.json',
-           '../resources/definitions/CubeProTrio.def.json',
-           '../resources/extruders/CubePro_extruder_0.def.json',
-           '../resources/extruders/CubePro_extruder_1.def.json',
-           '../resources/extruders/CubePro_extruder_2.def.json',
-           '../resources/meshes/CubePro_platform.stl']
-for item in copyList:
-    shutil.copy2(os.path.abspath(item),PLUGIN_DIR)
+zipList = {
+    'CubePro.def.json':             '../resources/definitions/',
+    'CubeProDuo.def.json':          '../resources/definitions/',
+    'CubeProTrio.def.json':         '../resources/definitions/',
+    'Cube.def.json':                '../resources/definitions/',
+    'Cube2.def.json':               '../resources/definitions/',
+    'Cube3.def.json':               '../resources/definitions/',
+    'CubeX.def.json':               '../resources/definitions/',
+    'CubeXDuo.def.json':            '../resources/definitions/',
+    'CubeXTrio.def.json':           '../resources/definitions/',
+    'CubePro_extruder_0.def.json':  '../resources/extruders/',
+    'CubePro_extruder_1.def.json':  '../resources/extruders/',
+    'CubePro_extruder_2.def.json':  '../resources/extruders/',
+    'Cube_extruder_0.def.json':     '../resources/extruders/',
+    'Cube2_extruder_0.def.json':     '../resources/extruders/',
+    'Cube3_extruder_0.def.json':    '../resources/extruders/',
+    'Cube3_extruder_1.def.json':    '../resources/extruders/',
+    'CubeX_extruder_0.def.json':    '../resources/extruders/',
+    'CubeX_extruder_1.def.json':    '../resources/extruders/',
+    'CubeX_extruder_2.def.json':    '../resources/extruders/',
+    'CubePro_platform.stl':         '../resources/meshes/',
+    'CubePro/':                     '../resources/quality/',
+    'CubeProDuo/':                  '../resources/quality/',
+    'CubeProTrio/':                 '../resources/quality/',
+    'CubeX/':                       '../resources/quality/',
+    'CubeXDuo/':                    '../resources/quality/',
+    'CubeXTrio/':                   '../resources/quality/',
+    'Cube/':                        '../resources/quality/',
+    'Cube2/':                       '../resources/quality/',
+    'Cube3/':                       '../resources/quality/'
+}
 
-shutil.copytree(os.path.abspath('../resources/quality/CubePro'),
-                os.path.join(PLUGIN_DIR,'CubePro'))
-
-shutil.copytree(os.path.abspath('../resources/quality/CubeProDuo'),
-                os.path.join(PLUGIN_DIR,'CubeProDuo'))
-
-shutil.copytree(os.path.abspath('../resources/quality/CubeProTrio'),
-                os.path.join(PLUGIN_DIR,'CubeProTrio'))
+for file_name, file_path in zipList.items():
+    if file_name.endswith('/'):
+        shutil.copytree(os.path.abspath(file_path + file_name), os.path.join(PLUGIN_DIR, file_name))
+    else:
+        shutil.copy2(os.path.abspath(file_path + file_name), PLUGIN_DIR)
 
 ################################
 ## Step 3
 ## zip the files copied above
 ################################
-internal_zip_file_name = os.path.join(PLUGIN_DIR,'CubeProPrinterPlugin.zip')
-z = zipfile.ZipFile(internal_zip_file_name,'w', zipfile.ZIP_DEFLATED)
-zipList = [os.path.join(PLUGIN_DIR,'CubePro.def.json'),
-           os.path.join(PLUGIN_DIR,'CubeProDuo.def.json'),
-           os.path.join(PLUGIN_DIR,'CubeProTrio.def.json'),
-           os.path.join(PLUGIN_DIR,'CubePro_extruder_0.def.json'),
-           os.path.join(PLUGIN_DIR,'CubePro_extruder_1.def.json'),
-           os.path.join(PLUGIN_DIR,'CubePro_extruder_2.def.json'),
-           os.path.join(PLUGIN_DIR,'CubePro_platform.stl')]
-for item in zipList:
-    z.write(item,os.path.basename(item));
-path = os.path.join(PLUGIN_DIR,'CubePro')
-for root, dirs, files in os.walk(path):
-    for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'CubePro', file),os.path.join('CubePro',file))
-path = os.path.join(PLUGIN_DIR,'CubeProDuo')
-for root, dirs, files in os.walk(path):
-    for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'CubeProDuo', file),os.path.join('CubeProDuo',file))
-path = os.path.join(PLUGIN_DIR,'CubeProTrio')
-for root, dirs, files in os.walk(path):
-    for file in files:
-        z.write(os.path.join(PLUGIN_DIR,'CubeProTrio', file),os.path.join('CubeProTrio',file))
+internal_zip_file_name = os.path.join(PLUGIN_DIR, PLUGIN_NAME + '.zip')
+z = zipfile.ZipFile(internal_zip_file_name, 'w', zipfile.ZIP_DEFLATED)
+for file_name, file_path in zipList.items():
+    if file_name.endswith('/'):
+        for root, dirs, files in os.walk(os.path.join(PLUGIN_DIR, file_name)):
+            for file in files:
+                z.write(os.path.join(PLUGIN_DIR, file_name, file), os.path.join(file_name, file))
+    else:
+        z.write(os.path.join(PLUGIN_DIR, file_name), os.path.basename(file_name));
+
 ################################
 ## Step 4
 ## now delete the files that were copied in Step 2
 ################################
-for item in zipList:
-    if os.path.exists(os.path.abspath(item)):
-        #print('Deleting ' + os.path.abspath(item))
-        os.remove(os.path.abspath(item))
+for file_name, file_path in zipList.items():
+    if file_name.endswith('/'):
+        shutil.rmtree(os.path.join(PLUGIN_DIR, file_name))
+    else:   
+        os.remove(os.path.join(PLUGIN_DIR, file_name))
 
-shutil.rmtree(os.path.join(PLUGIN_DIR,'CubePro'))
-shutil.rmtree(os.path.join(PLUGIN_DIR,'CubeProDuo'))
-shutil.rmtree(os.path.join(PLUGIN_DIR,'CubeProTrio'))
 ################################
 ## Step 5
 ## Create the README.pdf file from
@@ -139,20 +149,16 @@ shutil.rmtree(os.path.join(PLUGIN_DIR,'CubeProTrio'))
 currDir = os.getcwd()
 os.chdir('..')
 os.system('python -m grip README.md --export README.html')
-os.system('"{0}" {1} {2} {3}'.format(WKHTMLTOPDF_DIR,'--enable-local-file-access','README.html', os.path.join(PLUGIN_DIR,'README.pdf')))
-shutil.copy2(os.path.join(PLUGIN_DIR,'README.pdf'), '.')
+os.system('"{0}" {1} {2} {3}'.format(WKHTMLTOPDF_DIR, '--enable-local-file-access', 'README.html', os.path.join(PLUGIN_DIR,'README.pdf')))
+shutil.copy2(os.path.join(PLUGIN_DIR, 'README.pdf'), '.')
 os.chdir(currDir)
 
 ################################
 ## Step 6
 ## Copy the remaining plugin files
 ################################
-src_dir=os.path.abspath('../plugins/CubeProPrinterPlugin')
-src_files = os.listdir(src_dir)
-for file_name in src_files:
-    full_file_name = os.path.join(src_dir, file_name)
-    if os.path.isfile(full_file_name):
-        shutil.copy2(full_file_name, PLUGIN_DIR)
+for item in ALL_PLUGINS:
+    shutil.copytree(os.path.abspath('../plugins/' + item),  os.path.join(RELEASE_PLUGINS_DIR, item), dirs_exist_ok = True)
 
 ################################
 ## Step 7
@@ -169,10 +175,10 @@ for file in remaining_files:
 ## Step 8
 ## Zip up the plugin for release
 ################################
-z = zipfile.ZipFile(CURA_PACKAGE_FILE,'w', zipfile.ZIP_DEFLATED)
+z = zipfile.ZipFile(CURA_PACKAGE_FILE, 'w', zipfile.ZIP_DEFLATED)
 for root, dirs, files in os.walk(RELEASE_DIR):
     for file in files:
-        z.write(os.path.join(root,file),os.path.join(root,file).replace(RELEASE_DIR, ""))
+        z.write(os.path.join(root, file), os.path.join(root, file).replace(RELEASE_DIR, ""))
 
 
 ################################
@@ -181,11 +187,11 @@ for root, dirs, files in os.walk(RELEASE_DIR):
 ################################
 shutil.copy2(os.path.abspath('../LICENSE'), PLUGIN_DIR)
 
-z = zipfile.ZipFile(ULTIMAKER_ZIP,'w', zipfile.ZIP_DEFLATED)
-for root, dirs, files in os.walk(PLUGIN_DIR):
+z = zipfile.ZipFile(ULTIMAKER_ZIP, 'w', zipfile.ZIP_DEFLATED)
+for root, dirs, files in os.walk(RELEASE_PLUGINS_DIR):
     for file in files:
-        print(os.path.join(root,file))
-        z.write(os.path.join(root,file),os.path.join(root,file).replace(PLUGIN_DIR, "CubeProPrinterPlugin"))
+        print(os.path.join(root, file))
+        z.write(os.path.join(root, file), os.path.join(root, file).replace(RELEASE_PLUGINS_DIR, ''))
 
 
 ################################

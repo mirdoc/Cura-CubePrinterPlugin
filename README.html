@@ -298,43 +298,42 @@
                     
                     <div class="Box-body px-5 pb-5">
                       <article id="grip-content" class="markdown-body entry-content container-lg">
-                        <p><a target="_blank" rel="noopener noreferrer" href="./docs/icon.png"><img src="./docs/icon.png" alt="CubeProIcon" style="max-width: 100%;"></a></p>
-<h1><a id="user-content-cura-cubeproprinterplugin" class="anchor" aria-hidden="true" tabindex="-1" href="#cura-cubeproprinterplugin"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cura-CubeProPrinterPlugin</h1>
-<p><a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/">https://github.com/mirdoc/Cura-CubeProPrinterPlugin/</a></p>
-<p>This is a plugin for <a href="https://ultimaker.com/en/products/ultimaker-cura-software" rel="nofollow">Cura</a> that adds the 3D Systems CubePro, CubePro Duo, and CubePro Trio printers to Cura and enables Cura to export to the proprietary 3D Systems .cubepro file format.</p>
-<h1><a id="user-content-table-of-contents" class="anchor" aria-hidden="true" tabindex="-1" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Table_Of_Contents"></a>Table Of Contents</h1>
+                        <div class="markdown-heading"><h1 class="heading-element">Cura-CubePrinterPlugin</h1><a id="user-content-cura-cubeprinterplugin" class="anchor-element" aria-label="Permalink: Cura-CubePrinterPlugin" href="#cura-cubeprinterplugin"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/">https://github.com/mirdoc/Cura-CubePrinterPlugin/</a></p>
+<p>This is a plugin for <a href="https://ultimaker.com/en/products/ultimaker-cura-software" rel="nofollow">Cura</a> that adds the 3D Systems Cube, CubePro, and CubeX printers to Cura and enables Cura to export to the proprietary .cube, .cube3, .cubex, and .cubepro print file formats.</p>
+<div class="markdown-heading"><h1 class="heading-element">Table Of Contents</h1><a id="user-content-table-of-contents" class="anchor-element" aria-label="Permalink: Table Of Contents" href="#table-of-contents"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ul>
-<li><a href="#Introduction">Introduction</a></li>
-<li><a href="#Installation">Installation Instructions</a></li>
-<li><a href="#Using_the_Plugin">Using the Plugin</a></li>
-<li><a href="#Note">Note</a></li>
-<li><a href="#FAQ">Frequently Asked Questions (FAQ)</a></li>
-<li><a href="#Technical_Details">Technical Details of the .cubepro File Format</a></li>
-<li><a href="#License">License</a></li>
+<li><a href="#user-content-Introduction">Introduction</a></li>
+<li><a href="#user-content-Installation">Installation Instructions</a></li>
+<li><a href="#user-content-Using_the_Plugin">Using the Plugin</a></li>
+<li><a href="#user-content-Note">Note</a></li>
+<li><a href="#user-content-FAQ">Frequently Asked Questions (FAQ)</a></li>
+<li><a href="#user-content-Technical_Details">Technical Details of the .cubepro File Format</a></li>
+<li><a href="#user-content-G_Code_Commands">Technical Details of 3D Systems specific g-code commands</a></li>
+<li><a href="#user-content-License">License</a></li>
 </ul>
-<h1><a id="user-content-introduction" class="anchor" aria-hidden="true" tabindex="-1" href="#introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Introduction"></a>Introduction</h1>
-<p>This software is released as a plugin for the <a href="https://ultimaker.com/en/products/ultimaker-cura-software" rel="nofollow">Ultimaker Cura</a> Software.  The Cura-CubeProPrinterPlugin contains the necessary printer files to add the 3D Systems CubePro, CubePro Duo, and CubePro Trio printers to Cura and enables Cura to export the proprietary .cubepro file format.</p>
-<p>The author of this software is not affiliated with 3D Systems or Ultimaker.  Although the software functions well for the author and many other users, it is released without guarantee.  Using the software and the files that it produces may damage your printer, set property on fire, or do other <strong>really_bad_things</strong>.</p>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-Introduction"></a>Introduction</h1><a id="user-content-introduction" class="anchor-element" aria-label="Permalink: Introduction" href="#introduction"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>This software is released as a plugin for the <a href="https://ultimaker.com/en/products/ultimaker-cura-software" rel="nofollow">Ultimaker Cura</a> Software.  The Cura-CubePrinterPlugin contains the necessary printer files to add the 3D Systems Cube, CubePro, and CubeX printers to Cura and enables Cura to export the proprietary .cube, .cube3, .cubex, and .cubepro print file formats.</p>
+<p>The author of this software is not affiliated with 3D Systems or Ultimaker.  Although the software has been tested to function well for the author, it should be considered experimental and is released without guarantee.  Using the software and the files that it produces may damage your printer, set property on fire, or do other <strong>really_bad_things</strong>.</p>
 <p>This software is supplied without warranty and the user is responsible if they use this software and injury happens to their person or any other persons or damage occurs to any property as a result of using this software and/or the files that it creates.  Please remain near the 3D printer while using files generated by this software, and pay close attention to the 3D printer while it is on to verify that the machine is functioning properly. The software is provided AS-IS and any usage of this software or its output files is strictly at the user's own risk. The developer makes no other warranties, express or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose.</p>
-<p>This plugin borrows heavily from the <a href="https://github.com/metalman3797/Cura-Dremel-Printer-Plugin">Cura-Dremel-Printer-Plugin Cura gcode writer plugin</a> which itself contains code that is based upon the <a href="https://github.com/Ultimaker/Cura/tree/master/plugins/GCodeWriter">Cura gcode writer plugin</a> and is released under a LGPL-3.0 license.  Source code for this plugin can be found <a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin">here</a>.</p>
+<p>This plugin borrows heavily from the <a href="https://github.com/metalman3797/Cura-Dremel-Printer-Plugin">Cura-Dremel-Printer-Plugin Cura gcode writer plugin</a> which itself contains code that is based upon the <a href="https://github.com/Ultimaker/Cura/tree/master/plugins/GCodeWriter">Cura gcode writer plugin</a> and is released under a LGPL-3.0 license.  Source code for this plugin can be found <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin">here</a>.</p>
 <p><a target="_blank" rel="noopener noreferrer" href="./docs/curagui.png"><img src="./docs/curagui.png" alt="Cura Application" style="max-width: 100%;"></a></p>
 <p>As this plugin is currently in the testing stages it is not yet available within the Cura Marketplace.  Whilst this will hopefully change in the near future, for the timebeing the plug-in can be installed using the package available through the release page on this plugin's website.</p>
 <p>This plugin was written for Cura 5.6 and has been tested on Windows 10 Professional 64 bit edition, but should work equally well on any other operating system that Cura supports.</p>
 <hr>
-<h1><a id="user-content-installation" class="anchor" aria-hidden="true" tabindex="-1" href="#installation"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Installation"></a>Installation</h1>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-Installation"></a>Installation</h1><a id="user-content-installation" class="anchor-element" aria-label="Permalink: Installation" href="#installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To install the plugin, follow the instructions below:</p>
 <ol>
 <li>
 <p><a href="https://ultimaker.com/en/products/ultimaker-cura-software" rel="nofollow">Download and install Cura</a> on your machine</p>
 </li>
 <li>
-<p><a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/releases">Download the latest plugin package</a> from the plugin release page</p>
+<p><a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/releases">Download the latest plugin package</a> from the plugin release page</p>
 </li>
 <li>
-<p>Open Cura and drag and drop the plugin file <em>CubeProPrinterPlugin-x.x.x.curapackage</em> into the Cura window</p>
+<p>Open the Cura application and drag and drop the plugin file <em>CubePrinterPlugin-x.x.x.curapackage</em> into the Cura window</p>
 </li>
 <li>
 <p>Cura will display a message telling you the plugin will be installed after restarting
@@ -344,12 +343,13 @@
 <p>Close the Cura application and re-launch Cura</p>
 </li>
 <li>
-<p>Upon restart you should have an option to add a CubePro, CubePro Duo, and CubePro Trio printers (see "Using the Plugin" section below) - Congratulations, the plugin is now installed!</p>
+<p>Upon restart you should have an option to add a Cube, CubePro, and CubeX printers (see "Using the Plugin" section below) - Congratulations, the plugin is now installed!</p>
 </li>
 </ol>
+<p><strong>IMPORTANT:</strong> If have freshly installed Cura it will prompt you to add a printer when you first open it. Make sure you complete the steps above before selecting a printer to add.</p>
 <hr>
-<h1><a id="user-content-using-the-plugin" class="anchor" aria-hidden="true" tabindex="-1" href="#using-the-plugin"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Using_the_Plugin"></a>Using the Plugin</h1>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-Using_the_Plugin"></a>Using the Plugin</h1><a id="user-content-using-the-plugin" class="anchor-element" aria-label="Permalink: Using the Plugin" href="#using-the-plugin"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>To add your printer to use in Cura follow the steps outlined below:</p>
 <ol>
 <li>
@@ -364,11 +364,11 @@
 <a target="_blank" rel="noopener noreferrer" href="./docs/nonnetworkedprinter.png"><img src="./docs/nonnetworkedprinter.png" alt="Add a non-networked printer" style="max-width: 100%;"></a></p>
 </li>
 <li>
-<p>Scroll down to the "3D Systems" category, select your CubePro printer, and click the "Add" button
+<p>Scroll down to the "3D Systems" category, select your Cube printer, and click the "Add" button
 <a target="_blank" rel="noopener noreferrer" href="./docs/chooseprinter.png"><img src="./docs/chooseprinter.png" alt="Select your printer" style="max-width: 100%;"></a></p>
 </li>
 <li>
-<p>You have now installed a CubePro printer, your Cura should look something like this:
+<p>You have now installed a Cube printer, your Cura should look something like this:
 <a target="_blank" rel="noopener noreferrer" href="./docs/printeradded.png"><img src="./docs/printeradded.png" alt="Cura with CubePro Printer" style="max-width: 100%;"></a></p>
 </li>
 </ol>
@@ -378,7 +378,7 @@
 <p>Open Cura and use the File menu to open a model file to print</p>
 </li>
 <li>
-<p>Ensure your CubePro printer is selected and choose the type of filament you're using in your printer
+<p>Ensure your Cube printer is selected and choose the type of filament you're using in your printer
 <a target="_blank" rel="noopener noreferrer" href="./docs/selection.png"><img src="./docs/selection.png" alt="Printer/Filament Selection" style="max-width: 100%;"></a></p>
 </li>
 <li>
@@ -390,16 +390,16 @@
 <a target="_blank" rel="noopener noreferrer" href="./docs/slicebutton.png"><img src="./docs/slicebutton.png" alt="Slice Button" style="max-width: 100%;"></a></p>
 </li>
 <li>
-<p>Click the "save to file" or "save to removable drive" button.  Ensure that .cubepro is chosen as the output file format</p>
+<p>Click the "save to file" or "save to removable drive" button.  Ensure that file format that is appropriate for your printer (.cube, .cube3, .cubex, or .cubepro) is chosen as the output file format</p>
 <p><a target="_blank" rel="noopener noreferrer" href="./docs/savetodisk.png"><img src="./docs/savetodisk.png" alt="Save to Disk" style="max-width: 100%;"></a></p>
 <p><a target="_blank" rel="noopener noreferrer" href="./docs/cubeprooutput.png"><img src="./docs/cubeprooutput.png" alt="Save as .cubepro" style="max-width: 100%;"></a></p>
-<p><strong>Note:</strong> Saving a .cubepro can take several seconds or longer depending on the size and complexity of the object you are printing. Please be patient and wait for the message that tells you that the file has been saved.</p>
+<p><strong>Note:</strong> Saving the file can take several seconds or substantially longer depending on the size and complexity of the object you are printing. Please be patient and wait for the message that tells you that the file has been saved.</p>
 </li>
 <li>
 <p>Save or copy this file to a removable USB drive</p>
 </li>
 <li>
-<p>Insert the removable drive into your CubePro printer's USB port</p>
+<p>Insert the removable drive into your Cube printer's USB port</p>
 </li>
 <li>
 <p>Turn on the printer</p>
@@ -408,28 +408,28 @@
 <p>Select "Print" and choose the appropriate file to print</p>
 </li>
 <li>
-<p>Enjoy - if you encounter issues, feel free to raise them in the <a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/issues/new">"Issues" section</a></p>
+<p>Enjoy - if you encounter issues, feel free to raise them in the <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/issues/new">"Issues" section</a></p>
 </li>
 </ol>
 <hr>
-<h1><a id="user-content-note" class="anchor" aria-hidden="true" tabindex="-1" href="#note"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Note"></a>Note</h1>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-Note"></a>Note</h1><a id="user-content-note" class="anchor-element" aria-label="Permalink: Note" href="#note"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Please note the following:</p>
 <ul>
 <li>This plugin has been tested using the latest version of Cura noted in this README on Windows 10 x64 but testing and feedback for other platforms is welcomed!</li>
-<li>This plugin has been tested to work in the basic print case, however users may (and probably will) encounter problems with complex printing tasks and/or when using changing from default print settings. If you encounter any issues with the plugin, feel free to <a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/issues/new">raise an issue</a>.</li>
+<li>This plugin has been tested to work in the basic print case, however users may (and probably will) encounter problems with complex printing tasks and/or when using changing from default print settings. If you encounter any issues with the plugin, feel free to <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/issues/new">raise an issue</a>.</li>
 </ul>
 <hr>
-<h1><a id="user-content-frequently-asked-questions" class="anchor" aria-hidden="true" tabindex="-1" href="#frequently-asked-questions"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-FAQ"></a>Frequently Asked Questions</h1>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-FAQ"></a>Frequently Asked Questions</h1><a id="user-content-frequently-asked-questions" class="anchor-element" aria-label="Permalink: Frequently Asked Questions" href="#frequently-asked-questions"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
 <p><strong>Question:</strong> <em>I have encountered a problem with this plugin, what should I do?</em>
-<strong>Answer:</strong>   This plugin is very much a work-in-progress and should be considered experimental.  Feel free to raise any problems or issues encountered in the <a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/issues/new">"Issues" section</a>.</p>
+<strong>Answer:</strong>   This plugin is very much a work-in-progress and should be considered experimental.  Feel free to raise any problems or issues encountered in the <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/issues/new">"Issues" section</a>.</p>
 </li>
 <li>
 <p><strong>Question:</strong> <em>Does this plugin support USB-connected printing/Octoprint/Wifi Printing?  Do I need an SD card/USB thumb drive?</em>
-<strong>Answer:</strong> The plugin only supports creating .cubepro files and using a removable USB drive to get the files into the printer.  It does not currently support direct USB or WiFi communication with the printer.  The author may consider adding Wifi support in the future if enough users request this.</p>
+<strong>Answer:</strong> The plugin only supports creating proprietary print files and using a removable USB drive to get the files into the printer.  It does not currently support direct USB or WiFi communication with the printer.  The author may consider adding Wifi support in the future if enough users request this.</p>
 </li>
 <li>
 <p><strong>Question:</strong> <em>I'm using an older version of Cura, can I use this plugin?</em>
@@ -439,15 +439,18 @@
 <p><strong>Question:</strong> <em>What print materials/settings are supported?</em>
 <strong>Answer:</strong>  The author has tested the settings for generic PLA and ABS.  Testing of other materials and settings is very much encouraged and the author would appreciate feedback so this document can be updated with more information about material/setting compatibility or incompatibility.  If you have any suggested improvements to the settings please submit a Github issue or Pull Request and the changes will get tested.</p>
 </li>
+<li>
+<p><strong>Question:</strong> <em>I want to help make this plugin better. What can I do?</em>
+<strong>Answer:</strong> Any help to continue to improve this plugin is greatly appreciated. Feel free to report any problems, tweaks, or feature suggestions through the <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/issues/new">"Issues" section</a>. If you're a coder and have written some bugfixes or improvements submit a pull request and I'll incorporate your changes.</p>
+</li>
 </ol>
 <hr>
-<h1><a id="user-content-technical-details-of-the-cubepro-file-format" class="anchor" aria-hidden="true" tabindex="-1" href="#technical-details-of-the-cubepro-file-format"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-Technical_Details"></a>Technical Details of the .cubepro File Format</h1>
-<p>There are essentially two different versions of the .cubepro file format which will be referred to as the old format and the new format.</p>
-<p>The old format is simply a g-code text file encrypted using the BlowFish ciper using the encryption key <em>"221BBakerMycroft"</em></p>
-<p>The new format is essentially several files bundled together in a simple uncompressed archive.  Included in this archive is a Blowfish encrypted g-code text file which is produced in the exact same manner as the old file format.  However, after CubePro v1.87 3D Systems seems to have revised the way that the g-code is stored and encrypted.  Attempting to decrypt it in the usual fashion only generates approximately 20 lines of readable g-code while the remainder of the file appears jumbled.</p>
-<p>For simplicity and compatibility this plugin generates files using the old format as all CubePro printer firmware versions are able to read and process these files.</p>
-<p>This is the first 288 bytes of a new format .cubepro file.  A description of the current understanding of this file format is below:</p>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-Technical_Details"></a>Technical Details of the Proprietary Cube, CubeX, and CubePro File Formats</h1><a id="user-content-technical-details-of-the-proprietary-cube-cubex-and-cubepro-file-formats" class="anchor-element" aria-label="Permalink: Technical Details of the Proprietary Cube, CubeX, and CubePro File Formats" href="#technical-details-of-the-proprietary-cube-cubex-and-cubepro-file-formats"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The .cube format, along with that of the .cube3, .cubex, and the original .cubepro are simply BFB style plain text g-code that has been encrypted with the BlowFish cipher.  The .cube, .cube3, and .cubepro format use the encryption key <em>"221BBakerMycroft"</em>, whereas the .cubex format uses the encryption key <em>"kWd$qG*25Xmgf-Sg"</em></p>
+<p>At some point 3D Systems introduced a revised .cubepro format which is essentially several files bundled together in a simple uncompressed archive.  Included in this archive is a Blowfish encrypted g-code text file which is produced in the exact same manner as the original file format.  With the release of CubePro v1.90 the format was revised once again with a change in the way the g-code is stored and encrypted.  Attempting to decrypt it in the usual fashion only generates approximately 20 lines of readable g-code while the remainder of the file appears jumbled.</p>
+<p>For simplicity and compatibility this plugin generates files using the old format, as all CubePro printer firmware versions are able to read and process these files.</p>
+<p>This is the first 288 bytes of a revised format .cubepro file generated by CubePro v1.87.  A description of the current understanding of this file format is below:</p>
 <table>
 <thead>
 <tr>
@@ -650,12 +653,112 @@
         &lt;<span class="pl-ent">z_extents</span>&gt;19.8&lt;/<span class="pl-ent">z_extents</span>&gt;
     &lt;/<span class="pl-ent">build</span>&gt;
 &lt;/<span class="pl-ent">build_package</span>&gt;</pre></div>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-G_Code_Commands"></a>Technical Details of 3D Systems specific g-code commands</h1><a id="user-content-technical-details-of-3d-systems-specific-g-code-commands" class="anchor-element" aria-label="Permalink: Technical Details of 3D Systems specific g-code commands" href="#technical-details-of-3d-systems-specific-g-code-commands"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>One function of this plugin is to convert the G-code instructions output by Cura into a format that is compatible with the Cube series of printers.</p>
+<p>Owing to 3D Systems' acquisition of Bits From Bytes in 2010, the G-code flavor used by the Cube series of printers is derived from the instruction set developed by Bits From Bytes or BFB.</p>
+<p>Cura is capable of outputing BFB flavor G-code, and while similar, 3D Systems added and modified several command codes.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M104/M204/M304 Sxxx [P1]</td>
+<td>Sets temperature for extruder 1/2/3 respectively to value in <em>Sxxx</em>. By default this will pause printing until the target temperature is reached (similar to the M109 command used in many G-code flavors) but this behaviour can be overridden using the optional <em>P1</em> parameter.</td>
+</tr>
+<tr>
+<td>M106 Pxxx</td>
+<td>Sets hot end fan speed to value in <em>Pxxx</em> parameter which has a range from 0-100.</td>
+</tr>
+<tr>
+<td>M228 Px Sx</td>
+<td>Disable global/firmware retraction. Yet to be fully defined.</td>
+</tr>
+<tr>
+<td>M227 Pxxx Sxxx Gxxxx Fxxxx</td>
+<td>Set global/firmware retraction. Yet to be fully defined.</td>
+</tr>
+<tr>
+<td>M231 P0 S0</td>
+<td>Not yet defined. Raise bed to Z0 to set zero point?</td>
+</tr>
+<tr>
+<td>M232 P2500 S2500</td>
+<td>Not yet defined. Lower bed to glue position?</td>
+</tr>
+<tr>
+<td>M233 P1850</td>
+<td>Not yet defined. Display glue message and wait for confirmation?</td>
+</tr>
+<tr>
+<td>M240</td>
+<td>Not yet defined.</td>
+</tr>
+<tr>
+<td>M404 Sxxx [P1]</td>
+<td>Sets build chamber to temperature to value in value in <em>Sxxx</em>. By default this will pause printing until the target temperature is reached (similar to the M191 command used in many G-code flavors) but this behaviour can be overridden using the optional <em>P1</em> parameter.</td>
+</tr>
+<tr>
+<td>M551/M552/M553 Pxxx Sxxx</td>
+<td>Primes/feeds filament in extruder 1/2/3. Value in <em>Pxxx</em> represents number of steps. Value in Sxxx represents speed in rpm.</td>
+</tr>
+<tr>
+<td>M561/M562/M563 Pxxx Sxxx</td>
+<td>Retracts/reverses filament in extruder 1/2/3. Value in <em>Pxxx</em> represents number of steps. Value in Sxxx represents speed in rpm.</td>
+</tr>
+<tr>
+<td>M601 Px Sxx Fx</td>
+<td>Not yet defined.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>G-Code Header</strong></p>
+<p>Cube G-Code starts with a plain text header which contains print information and material settings most of which do not seem to be required and can be omitted. However if the header is omitted entirely an "Invalid Format" will occur when the print file is being read by the printer.</p>
+<p><em>Example Header</em></p>
+<pre lang="^Firmware:V1.03A"><code>^Minfirmware:V1.00
+^DRM:000000000000
+^ConfigAndConfiguration:F403-F396
+^PrinterModel:CUBEPRO
+^MaterialCodeE1:200
+^MaterialCodeE2:209
+^MaterialCodeE3:-1
+^MaterialLengthE1: 586.656
+^MaterialLengthE2: 604.156
+^MaterialLengthE3: 0.000
+^ExtruderTypeE1:0
+^ExtruderTypeE2:0
+^ExtruderTypeE3:0
+^ModelHeight: 31.600
+^LayerCount: 158
+^LayerHeight:0.2
+^XSize:19.9936
+^YSize:9.9968
+^Supports:-1
+^Raft:-1
+^Sidewalks:-1
+^Density:Strong
+^Pattern:Diamond
+^Version:1494
+^Time:155
+</code></pre>
+<p><em>Minimal Header</em></p>
+<pre lang="^Firmware:V1.00"><code>^Minfirmware:V1.00
+^DRM:000000000000
+^PrinterModel:CUBEPRO
+</code></pre>
+<p><strong>General Information</strong></p>
+<p>Comments in must be prefixed with ^, lines starting with ; will cause an "Invalid Format" error when the print file is being read by the printer.</p>
+<p>The tool change command <em>Tx</em> and is not supported and instead extruder specific instruction are used as noted above.  Similarly <em>Tx</em> is not used as a parameter in M104 to specify an extruder to set as is the case in many G-code flavors.</p>
 <hr>
-<h1><a id="user-content-license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a name="user-content-License"></a>License</h1>
-<p>The Cura-CubeProPrinterPlugin is licensed under the GNU Lesser General Public License v3.0</p>
+<div class="markdown-heading"><h1 class="heading-element">
+<a name="user-content-License"></a>License</h1><a id="user-content-license" class="anchor-element" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The Cura-CubePrinterPlugin is licensed under the GNU Lesser General Public License v3.0</p>
 <p>Permissions of this copyleft license are conditioned on making available complete source code of licensed works and modifications under the same license or the GNU GPLv3. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work through interfaces provided by the licensed work may be distributed under different terms and without source code for the larger work.</p>
-<p>For the complete license text, please see the <a href="https://github.com/mirdoc/Cura-CubeProPrinterPlugin/blob/stable/LICENSE">LICENSE file</a></p>
+<p>For the complete license text, please see the <a href="https://github.com/mirdoc/Cura-CubePrinterPlugin/blob/stable/LICENSE">LICENSE file</a></p>
 
                       </article>
                     </div>

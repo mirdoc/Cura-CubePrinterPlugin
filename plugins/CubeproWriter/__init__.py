@@ -5,9 +5,9 @@ import sys
 
 from UM.Logger import Logger
 try: 
-    from . import CubeProPrinterPlugin
+    from . import CubeproWriter
 except ImportError:
-    Logger.log("w", "Could not import CubeProPrinterPlugin")
+    Logger.log("w", "Could not import CubeproWriter")
 
 from UM.i18n import i18nCatalog
 catalog = i18nCatalog("cura")
@@ -19,19 +19,18 @@ def getMetaData():
         "mesh_writer": {
             "output": [{
                 "extension": file_extension,
-                "description": catalog.i18nc("@item:inlistbox", "CubePro Print File"),
+                "description": catalog.i18nc("@item:inlistbox", "Cubepro Print File"),
                 "mime_type": "application/x-cubepro",
-                "mode": CubeProPrinterPlugin.CubeProPrinterPlugin.OutputMode.BinaryMode,
+                "mode": CubeproWriter.CubeproWriter.OutputMode.BinaryMode,
             }],
         }
     }
 
 
 def register(app):
-    if "CubeProPrinterPlugin.CubeProPrinterPlugin" not in sys.modules:
+    if "CubeproWriter.CubeproWriter" not in sys.modules:
         return {}
-    plugin = CubeProPrinterPlugin.CubeProPrinterPlugin()
+    plugin = CubeproWriter.CubeproWriter()
     return {
-        "mesh_writer": plugin,
-        "extension": plugin
+        "mesh_writer": plugin
     }

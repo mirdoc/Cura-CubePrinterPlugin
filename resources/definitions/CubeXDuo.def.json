@@ -1,15 +1,14 @@
 {
-    "id": "CubeProTrio",
+    "id": "CubeXDuo",
     "inherits": "fdmprinter",
     "metadata": {
         "author": "mirdoc",
         "category": "3D Systems",
-        "file_formats": "application/x-cubepro;text/x-gcode",
+        "file_formats": "application/x-cubex;text/x-gcode",
         "has_machine_quality": true,
         "machine_extruder_trains": {
-            "0": "CubePro_extruder_0",
-            "1": "CubePro_extruder_1",
-            "2": "CubePro_extruder_2"
+            "0": "CubeX_extruder_0",
+            "1": "CubeX_extruder_1"
         },
         "manufacturer": "3D Systems",
         "platform": "CubePro_platform.stl",
@@ -18,13 +17,13 @@
         "supports_usb_connection": false,
         "visible": true
     },
-    "name": "CubePro Trio",
+    "name": "CubeX Duo",
     "overrides": {
         "adhesion_type": {
             "default_value": "skirt"
         },
         "gantry_height": {
-            "default_value": 270.4
+            "default_value": 240
         },
         "infill_sparse_density": {
             "default_value": 20
@@ -42,10 +41,10 @@
             "default_value": true
         },
         "machine_depth": {
-            "default_value": 230
+            "default_value": 240
         },
         "machine_extruder_count": { 
-            "default_value": 2 
+            "default_value": 2
         },
         "machine_end_gcode": {
             "default_value": ""
@@ -57,22 +56,22 @@
             "default_value": false
         },
         "machine_heated_build_volume": {
-            "default_value": true
+            "default_value": false
         },
         "machine_height": {
-            "default_value": 270.4
+            "default_value": 240
         },
         "machine_name": {
-            "default_value": "CubePro Trio"
+            "default_value": "CubeX Duo"
         },
         "machine_nozzle_size": {
             "default_value": 0.35
         },
         "machine_start_gcode": {
-            "default_value": "^Firmware:V1.03A\n^Minfirmware:V1.00\n^DRM:000000000000\n^PrinterModel:CUBEPRO\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^LayerCount: 1\n^LayerHeight:{layer_height}\n^Time:1\nM404 S{build_volume_temperature}\nM227 P250 S250 G300 F700\nM228 P0 S250\nM231 P0 S0\nM232 P2500 S2500\nM233 P1850\nM240 S2000\nG1 X108.000 Y136.000 Z5.2000 F9000.0\nG1 X108.000 Y161.000 Z5.2000 F9000.0\n^InitComplete"
+            "default_value": ""
         },
         "machine_width": {
-            "default_value": 285.4
+            "default_value": 275
         },
         "material_diameter": {
             "default_value": 1.75
@@ -81,7 +80,7 @@
             "default_value": 0.05
         },
         "speed_print": {
-            "default_value": 60
+            "default_value": 40
         }
     },
     "version": 2

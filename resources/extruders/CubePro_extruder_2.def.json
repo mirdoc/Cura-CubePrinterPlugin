@@ -5,16 +5,29 @@
         "machine": "CubePro",
         "position": "2"
     },
-    "name": "Extruder3",
+    "name": "Extruder 3",
     "overrides": {
         "extruder_nr": {
             "default_value": 2
+        },
+        "extruder_prime_pos_y": {
+            "default_value": 157
+        },
+        "extruder_prime_pos_x": {
+            "default_value": 128
         },
         "machine_nozzle_size": {
             "default_value": 0.35
         },
         "material_diameter": {
             "default_value": 1.75
+        },
+        "machine_extruder_start_code":
+        {
+            "default_value": "M304 S{print_temperature} P1\nG1 X128.000 Y157.000 F9000.0\nM304 S{print_temperature}\nM553 P775 S25\nG1 X128.000 Y136.000 F9000.0"
+        },
+        "machine_extruder_end_code": {
+            "default_value": "M563 P550 S500\nG4 P0"
         }
     },
     "version": 2
