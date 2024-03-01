@@ -1,7 +1,7 @@
 {
   "name": "CubePrinterPlugin",
   "author": "mirdoc",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Enables the user to add the3D Systems Cube, CubePro, and CubeX printers to Cura and enables Cura to export to the proprietary .cube, .cube3, .cubex, and .cubepro print file formats.",
   "api": 8,
   "supported_sdk_versions": [

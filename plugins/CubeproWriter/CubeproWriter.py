@@ -41,7 +41,7 @@ class CubeproWriter(QObject, MeshWriter):
         super().__init__(add_to_recent_files = False)
         self._plugin_name = "CubeproWriter"
         self._file_extension = "cubepro"
-        self._version = "0.2.0"
+        self._version = "0.2.1"
 
         self._encryption_key = b"221BBakerMycroft"
             
@@ -223,7 +223,7 @@ class CubeproWriter(QObject, MeshWriter):
             elif line.startswith("M240 S"):
                 gcode_M240_param = self._material_map[extruders[0].material.getMetaDataEntry("material")].get("gcode_M240_param")
                 if gcode_M240_param is not None:
-                    line = "M240 S" + str()
+                    line = "M240 S" + str(gcode_M240_param)
                 
             # M104 and M109 sets extruder temperature, with M109 triggering a pause until desired temperature is reached.
             # An optional paramater T<int> specifies an extruder number, and if omitted the active extruder will be used.

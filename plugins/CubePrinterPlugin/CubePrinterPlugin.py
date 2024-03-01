@@ -68,7 +68,7 @@ class CubePrinterPlugin(QObject, Extension):
     ##    2) .\plugin.json
     ##    3) ..\..\resources\package.json
     ######################################################################
-    version = "0.2.0"
+    version = "0.2.1"
     _website_url = "https://github.com/mirdoc/Cura-CubePrinterPlugin"
 
     def __init__(self) -> None:
