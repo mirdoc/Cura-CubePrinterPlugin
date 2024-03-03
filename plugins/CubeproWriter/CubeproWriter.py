@@ -110,7 +110,7 @@ class CubeproWriter(QObject, MeshWriter):
         if mode != MeshWriter.OutputMode.BinaryMode:
             error_message = self._plugin_name + " - Non-binary output mode is not supported."
             Logger.log("e", error_message)
-            cubeMeshWriter.setInformation(catalog.i18nc("@error:not supported", error_message))
+            self.setInformation(catalog.i18nc("@error:not supported", error_message))
             return False
 
         if stream is None:
@@ -128,7 +128,7 @@ class CubeproWriter(QObject, MeshWriter):
         if gcode_writer is None:
             error_message = self._plugin_name + " - Could not load GCodeWriter plugin. Try to re-enable the plugin."
             Logger.log("e", error_message)
-            cubeMeshWriter.setInformation(catalog.i18nc("@error:load", error_message))
+            self.setInformation(catalog.i18nc("@error:load", error_message))
             return False
         
         Logger.log("i", self._plugin_name + " - Writing started.")
@@ -140,7 +140,7 @@ class CubeproWriter(QObject, MeshWriter):
         
         # Getting the g-code failed so return with error
         if not success:
-            cubeMeshWriter.setInformation(gcode_writer.getInformation())
+            self.setInformation(gcode_writer.getInformation())
             return False
 
         gcode_in.seek(0)
@@ -193,7 +193,7 @@ class CubeproWriter(QObject, MeshWriter):
                         if material_mapped is None:
                             error_message = self._plugin_name + " - Unsupported filament type selected."
                             Logger.log("e", error_message)
-                            cubeMeshWriter.setInformation(catalog.i18nc("@error", error_message))
+                            self.setInformation(catalog.i18nc("@error", error_message))
                             return False
                         
                         line = f"^MaterialCodeE{extruder_num}:{material_mapped['material_code']}"
@@ -282,7 +282,7 @@ class CubeproWriter(QObject, MeshWriter):
         if not header_found:
             error_message = self._plugin_name + " - No g-code header found. Has the machine start gcode been edited?"
             Logger.log("e", error_message)
-            cubeMeshWriter.setInformation(catalog.i18nc("@error", error_message))
+            self.setInformation(catalog.i18nc("@error", error_message))
             return False
         
         # Encrypt gcode with blowfish and write to stream
