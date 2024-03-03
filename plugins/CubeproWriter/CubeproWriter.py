@@ -280,7 +280,7 @@ class CubeproWriter(QObject, MeshWriter):
             # Some printers seem to _really_ not like G moves that don't have X Y and Z coords so we'll capture each coord
             # with each move and rewrite the G move to make sure all coords are included
             elif line[0] == "G" and (line[1] == "0" or line[1] == "1"):
-                g_feedrate_present = False
+                G_feedrate_present = False
                 gcode_args = line.split(" ")
                 for gcode_arg in gcode_args:
                     if gcode_arg[0] == "X":
