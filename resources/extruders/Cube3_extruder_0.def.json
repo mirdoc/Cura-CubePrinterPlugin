@@ -17,7 +17,7 @@
             "default_value": 1.75
         },
         "machine_extruder_start_code": {
-            "default_value": "M104 S{print_temperature} P1\nG1 X-100.500 Y0.000 Z5.0575 F7000.0\nM104 S{print_temperature} P0\nG4 P15\nM551 P775 S25\nG1 X108.000 Y136.000 F9000.0"
+            "default_value": "M104 S{print_temperature} P1\nG1 G1 X-100.500 Y0.000 F7000.0\nM104 S{print_temperature} P0\nG4 P15\nM551 P775 S25\nG1 X-95.500 Y0.000 F7000.0"
         },
         "machine_extruder_end_code": {
             "default_value": "M561 P550 S500\nG4 P0"
