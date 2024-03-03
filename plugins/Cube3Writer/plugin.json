@@ -1,7 +1,7 @@
 {
   "name": "Cube3Writer",
   "author": "mirdoc",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Enables the user to export the proprietary .cube3 print files for 3D Systems Cube 3",
   "api": 8,
   "supported_sdk_versions": [

@@ -41,7 +41,7 @@ class CubeproWriter(QObject, MeshWriter):
         super().__init__(add_to_recent_files = False)
         self._plugin_name = "CubeproWriter"
         self._file_extension = "cubepro"
-        self._version = "0.2.1"
+        self._version = "0.2.2"
 
         self._encryption_key = b"221BBakerMycroft"
             
@@ -160,6 +160,13 @@ class CubeproWriter(QObject, MeshWriter):
         
         header_found = False
         command_buffer = ""
+        
+        G_xpos = float(0)
+        G_ypos = float(0)
+        G_zpos = float(5)   # initial Z pos is 5mm above bed to avoid accidental collision between bed and printhead
+        
+        G_feedrate = 0
+        G_feedrate_present = False
 
         for line in gcode_in:
             line = line.strip()
@@ -269,6 +276,25 @@ class CubeproWriter(QObject, MeshWriter):
                     line = f"M404 S{build_volume_temperature}"
                     if add_P1: 
                         line += " P1"
+                        
+            # Some printers seem to _really_ not like G moves that don't have X Y and Z coords so we'll capture each coord
+            # with each move and rewrite the G move to make sure all coords are included
+            elif line[0] == "G" and (line[1] == "0" or line[1] == "1"):
+                g_feedrate_present = False
+                gcode_args = line.split(" ")
+                for gcode_arg in gcode_args:
+                    if gcode_arg[0] == "X":
+                        G_xpos = float(gcode_arg[1:])
+                    elif gcode_arg[0] == "Y":
+                        G_ypos = float(gcode_arg[1:])
+                    elif gcode_arg[0] == "Z":
+                        G_zpos = float(gcode_arg[1:])
+                    elif gcode_arg[0] == "F":
+                        G_feedrate = float(gcode_arg[1:])
+                        G_feedrate_present = True
+                line = "{0} X{1:.3f} Y{2:.3f} Z{3:.4f}".format(gcode_args[0], G_xpos, G_ypos, G_zpos)
+                if G_feedrate_present:
+                    line += " F{0:.1f}".format(G_feedrate)
             
             # Cura sometimes throws extruder heat and fan commands in before the g-code start block and this will cause the
             # "Invalid Format" error when read by the printer, so we'll just store them away until after the header has
