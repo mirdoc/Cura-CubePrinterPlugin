@@ -64,7 +64,7 @@ class CubeWriter(QObject, MeshWriter):
             if cubepro_writer is None:
                 error_message = self._plugin_name + " - Could not load print file writer. You may need to reinstall CubePrinterPlugin."
                 Logger.log("e", error_message)
-                cubeMeshWriter.setInformation(catalog.i18nc("@error:load", error_message))
+                self.setInformation(catalog.i18nc("@error:load", error_message))
                 return False
 
             # Pass parameters to CubeproWriter and call processOutput
