@@ -37,7 +37,7 @@ class Cube3Writer(QObject, MeshWriter):
         super().__init__(add_to_recent_files = False)
         self._plugin_name = "Cube3Writer"
         self._file_extension = "cube3"
-        self._version = "0.2.2"
+        self._version = "0.2.3"
         
         # Encryption key used by BlowFish cipher
         self._encryption_key = b"221BBakerMycroft"

@@ -41,7 +41,7 @@ class CubeproWriter(QObject, MeshWriter):
         super().__init__(add_to_recent_files = False)
         self._plugin_name = "CubeproWriter"
         self._file_extension = "cubepro"
-        self._version = "0.2.2"
+        self._version = "0.2.3"
 
         self._encryption_key = b"221BBakerMycroft"
             
