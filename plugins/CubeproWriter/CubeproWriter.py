@@ -39,14 +39,14 @@ catalog = i18nCatalog("cura")
 class CubeproWriter(QObject, MeshWriter):
     def __init__(self) -> None:
         super().__init__(add_to_recent_files = False)
-        self._plugin_name = "CubeproWriter"
-        self._file_extension = "cubepro"
         self._version = "0.2.3"
+        self.__plugin_name = "CubeproWriter"
+        self.__file_extension = "cubepro"
 
-        self._encryption_key = b"221BBakerMycroft"
+        self.__encryption_key = b"221BBakerMycroft"
             
         # Used to map specific values which depend on material type
-        self._material_map = {
+        self.__material_map = {
             "PLA": {
                 "material_code": "209",     # PLA Black
                 "gcode_M240_param": 2000
@@ -66,7 +66,14 @@ class CubeproWriter(QObject, MeshWriter):
         }
 
         # This array is used when parsing the g-code to skip lines
-        self._skip_prefixes = [";", "G90", "G92", "M82", "M227 S128 P128"]
+        self.__skip_prefixes = [";", "G90", "G92", "M82", "M227 S128 P128"]
+        
+        # Initialise and set params to defaults
+        self._plugin_name = self.__plugin_name
+        self._file_extension = self.__file_extension
+        self._encryption_key = self.__encryption_key
+        self._material_map = self.__material_map
+        self._skip_prefixes = self.__skip_prefixes
 
   
     ######################################################################
@@ -93,6 +100,7 @@ class CubeproWriter(QObject, MeshWriter):
     @call_on_qt_thread
     def write(self, stream: BufferedIOBase, nodes, mode=MeshWriter.OutputMode.BinaryMode) -> bool:
         try:
+            self.setParams({"plugin_name": self.__plugin_name, "material_map": self.__material_map, "encryption_key": self.__encryption_key, "skip_prefixes": self.__skip_prefixes})
             return self.processOutput(stream, nodes, mode)
             
         except Exception as e:
