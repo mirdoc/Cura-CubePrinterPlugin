@@ -67,7 +67,7 @@
             "default_value": 0.35
         },
         "machine_start_gcode": {
-            "default_value": "^Firmware:V1.03A\n^Minfirmware:V1.00\n^DRM:000000000000\n^PrinterModel:CUBEPRO\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^LayerCount: 1\n^LayerHeight:{layer_height}\n^Time:1\nM404 S{build_volume_temperature}\nM227 P250 S250 G300 F700\nM228 P0 S250\nM231 P0 S0\nM232 P2500 S2500\nM233 P1850\nM240 S2000\nG1 X108.000 Y136.000 Z5.2000 F9000.0\nG1 X108.000 Y161.000 Z5.2000 F9000.0\n^InitComplete"
+            "default_value": "^Firmware:V1.03A\n^Minfirmware:V1.00\n^DRM:000000000000\n^PrinterModel:CUBEPRO\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^LayerCount: 1\n^LayerHeight:{layer_height}\n^Time:1\nM404 S{build_volume_temperature}\nM227 P250 S250 G300 F700\nM228 P0 S250\nM231 P0 S0\nM232 P2500 S2500\nM233 P1850\nM240 S2000\nM601 P2 S30 F5\nG1 X108.000 Y136.000 Z5.2000 F9000.0\nG1 X108.000 Y161.000 Z5.2000 F9000.0\n^InitComplete"
         },
         "machine_width": {
             "default_value": 285.4
@@ -80,7 +80,10 @@
         },
         "speed_print": {
             "default_value": 60
-        }
+        },
+        "wall_transition_length": {
+            "default_value": 0.35
+        }            
     },
     "version": 2
 }
