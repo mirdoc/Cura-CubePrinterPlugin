@@ -40,40 +40,42 @@ class CubeproWriter(QObject, MeshWriter):
     def __init__(self) -> None:
         super().__init__(add_to_recent_files = False)
         self._version = "0.2.3"
-        self.__plugin_name = "CubeproWriter"
-        self.__file_extension = "cubepro"
-
-        self.__encryption_key = b"221BBakerMycroft"
-            
-        # Used to map specific values which depend on material type
-        self.__material_map = {
-            "PLA": {
-                "material_code": "209",     # PLA Black
-                "gcode_M240_param": 2000
-            },
-            "ABS": {
-                "material_code": "259",     # ABS Black
-                "gcode_M240_param": 1400
-            },
-            "Nylon": {
-                "material_code": "403",     # Nylon natural
-                "gcode_M240_param": 1200
-            },
-            "PETG": {
-                "material_code": "259",     # PETG - use ABS Black **EXPERIMENTAL**
-                "gcode_M240_param": 1400
-            }
-        }
-
-        # This array is used when parsing the g-code to skip lines
-        self.__skip_prefixes = [";", "G90", "G92", "M82", "M227 S128 P128"]
+        self._plugin_name = "CubeproWriter"
         
-        # Initialise and set params to defaults
-        self._plugin_name = self.__plugin_name
-        self._file_extension = self.__file_extension
-        self._encryption_key = self.__encryption_key
-        self._material_map = self.__material_map
-        self._skip_prefixes = self.__skip_prefixes
+        self._encryption_key = b""
+        self._material_map = {}
+        self._skip_prefixes = []
+        self._G_format = ""
+
+        self._params = {
+            "plugin_name": self._plugin_name,
+            "encryption_key": b"221BBakerMycroft",
+            
+            # Used to map specific values which depend on material type
+            "material_map": {
+                "PLA": {
+                    "material_code": "209",     # PLA Black
+                    "gcode_M240_param": 2000
+                },
+                "ABS": {
+                    "material_code": "259",     # ABS Black
+                    "gcode_M240_param": 1400
+                },
+                "Nylon": {
+                    "material_code": "403",     # Nylon natural
+                    "gcode_M240_param": 1200
+                },
+                "PETG": {
+                    "material_code": "259",     # PETG - use ABS Black **EXPERIMENTAL**
+                    "gcode_M240_param": 1400
+                }
+            },
+
+            # This array is used when parsing the g-code to skip lines
+            "skip_prefixes": [";", "G90", "G92", "M82", "M227 S128 P128"],
+            
+            "G_format": "{0} X{1:.3f} Y{2:.3f} Z{3:.4f}"
+        }
 
   
     ######################################################################
@@ -92,6 +94,9 @@ class CubeproWriter(QObject, MeshWriter):
         param = params.get("skip_prefixes")
         if param is not None:
             self._skip_prefixes = param
+        param = params.get("G_format")
+        if param is not None:
+            self._G_format = param
 
 
     ######################################################################
@@ -100,13 +105,13 @@ class CubeproWriter(QObject, MeshWriter):
     @call_on_qt_thread
     def write(self, stream: BufferedIOBase, nodes, mode=MeshWriter.OutputMode.BinaryMode) -> bool:
         try:
-            self.setParams({"plugin_name": self.__plugin_name, "material_map": self.__material_map, "encryption_key": self.__encryption_key, "skip_prefixes": self.__skip_prefixes})
+            self.setParams(self._params)
             return self.processOutput(stream, nodes, mode)
             
         except Exception as e:
-            Logger.logException("w", "An exception occured in " + self._plugin_name + " while trying to create ." + self._file_extension + " file.")
+            Logger.logException("w", "An exception occured in " + self._plugin_name + " while trying to create print file.")
             Logger.log("d", sys.exc_info()[:2])
-            message = Message(catalog.i18nc("@warning:status", self._plugin_name + " experienced an error trying to create ." + self._file_extension + " file"))
+            message = Message(catalog.i18nc("@warning:status", self._plugin_name + " experienced an error trying to create print file"))
             message.show()
             
             return False
@@ -172,6 +177,8 @@ class CubeproWriter(QObject, MeshWriter):
         G_xpos = float(0)
         G_ypos = float(0)
         G_zpos = float(5)   # initial Z pos is 5mm above bed to avoid accidental collision between bed and printhead
+
+        G_format = self._G_format
         
         G_feedrate = 0
         G_feedrate_present = False
@@ -300,7 +307,7 @@ class CubeproWriter(QObject, MeshWriter):
                     elif gcode_arg[0] == "F":
                         G_feedrate = float(gcode_arg[1:])
                         G_feedrate_present = True
-                line = "{0} X{1:.3f} Y{2:.3f} Z{3:.4f}".format(gcode_args[0], G_xpos, G_ypos, G_zpos)
+                line = G_format.format(gcode_args[0], G_xpos, G_ypos, G_zpos)
                 if G_feedrate_present:
                     line += " F{0:.1f}".format(G_feedrate)
             

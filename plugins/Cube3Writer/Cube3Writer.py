@@ -35,25 +35,29 @@ catalog = i18nCatalog("cura")
 class Cube3Writer(QObject, MeshWriter):
     def __init__(self) -> None:
         super().__init__(add_to_recent_files = False)
-        self._plugin_name = "Cube3Writer"
-        self._file_extension = "cube3"
+        
         self._version = "0.2.3"
+        self._plugin_name = "Cube3Writer"
         
-        # Encryption key used by BlowFish cipher
-        self._encryption_key = b"221BBakerMycroft"
-        
-        # Used to map specific values which depend on material type
-        self._material_map = {
-            "PLA": {
-                "material_code": "87",      # PLA Black
+        self._params = {
+            "plugin_name": self._plugin_name,
+            "encryption_key": b"221BBakerMycroft",
+            
+            # Used to map specific values which depend on material type
+            "material_map": {
+                "PLA": {
+                    "material_code": "87",      # PLA Black
+                },
+                "ABS": {
+                    "material_code": "137",     # ABS Black
+                }
             },
-            "ABS": {
-                "material_code": "137",     # ABS Black
-            }
-        }
 
-        # This array is used when parsing the g-code to skip lines
-        self._skip_prefixes = [";", "G90", "G92", "M82", "M227 S128 P128"]
+            # This array is used when parsing the g-code to skip lines
+            "skip_prefixes": [";", "G90", "G92", "M82", "M227 S128 P128"],
+            
+            "G_format": "{0} X{1:.3f} Y{2:.3f} Z{3:.4f}"
+        }        
         
     @call_on_qt_thread
     def write(self, stream: BufferedIOBase, nodes, mode=MeshWriter.OutputMode.BinaryMode) -> bool:
@@ -68,13 +72,13 @@ class Cube3Writer(QObject, MeshWriter):
                 return False
 
             # Pass parameters to CubeproWriter and call processOutput
-            cubepro_writer.setParams({"plugin_name": self._plugin_name, "material_map": self._material_map, "encryption_key": self._encryption_key, "skip_prefixes": self._skip_prefixes})
+            cubepro_writer.setParams(self._params)
             return cubepro_writer.processOutput(stream, nodes, mode)
             
         except Exception as e:
-            Logger.logException("w", "An exception occured in " + self._plugin_name + " while trying to create ." + self._file_extension + " file.")
+            Logger.logException("w", "An exception occured in " + self._plugin_name + " while trying to create print file.")
             Logger.log("d", sys.exc_info()[:2])
-            message = Message(catalog.i18nc("@warning:status", self._plugin_name + " experienced an error trying to create ." + self._file_extension + " file"))
+            message = Message(catalog.i18nc("@warning:status", self._plugin_name + " experienced an error trying to create print file"))
             message.show()
             
             return False        
