@@ -75,6 +75,9 @@
         "material_diameter": {
             "default_value": 1.75
         },
+        "material_flow": {
+            "default_value": 105
+        },
         "retraction_amount": {
             "default_value": 0.05
         },

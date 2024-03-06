@@ -69,13 +69,16 @@
             "default_value": 0.35
         },
         "machine_start_gcode": {
-            "default_value": ""
+            "default_value": "^Firmware:V1.00\n^DRM:00000000\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\nTime:1\n^InitComplete"
         },
         "machine_width": {
             "default_value": 275
         },
         "material_diameter": {
             "default_value": 1.75
+        },
+        "material_flow": {
+            "default_value": 105
         },
         "retraction_amount": {
             "default_value": 0.05
