@@ -9,7 +9,7 @@
     "display_name": "Cube Printer Plugin",
     "package_id": "CubePrinterPlugin",
     "package_type": "plugin",
-    "package_version": "0.2.3",
+    "package_version": "0.2.4",
     "sdk_version": 8,
     "tags": [
         "3DSystems",

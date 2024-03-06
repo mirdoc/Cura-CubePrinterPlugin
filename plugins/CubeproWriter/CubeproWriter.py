@@ -39,7 +39,7 @@ catalog = i18nCatalog("cura")
 class CubeproWriter(QObject, MeshWriter):
     def __init__(self) -> None:
         super().__init__(add_to_recent_files = False)
-        self._version = "0.2.3"
+        self._version = "0.2.4"
         self._plugin_name = "CubeproWriter"
         
         self._encryption_key = b""
