@@ -60,13 +60,16 @@
             "default_value": 0.35
         },
         "machine_start_gcode": {
-            "default_value": "^Firmware:V1.03A\n^Minfirmware:V1.00\n^DRM:000000000000\n^PrinterModel:CUBE3\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^LayerCount: 1\n^LayerHeight:{layer_height}\n^Time:1\nM227 P450 S450 G450 F600\nM228 P0 S450\nM231 P0 S0\nM232 P5000 S5000\nM233 P1000\nM106 P100\nG4 P60\nM601 P3 S60 F5\nM542\nM240 X450\nM240 Y400\nM228 P0 S1\nM227 P1 S1 G1000 F1000\nM601 P8 S60 F5\nM240 S450\n^InitComplete"
+            "default_value": "^Firmware:V1.03A\n^Minfirmware:V1.00\n^DRM:000000000000\n^PrinterModel:CUBE3\n^MaterialCodeE1:-1\n^MaterialCodeE2:-1\n^MaterialCodeE3:-1\n^MaterialLengthE1: 0\n^MaterialLengthE2: 0\n^MaterialLengthE3: 0\n^LayerCount: 1\n^LayerHeight:{layer_height}\n^Time:1\nM227 P450 S450 G450 F600\nM228 P0 S450\nM231 P0 S0\nM232 P5000 S5000\nM233 P1000\nM106 P100\nG4 P60\nM601 P3 S60 F5\nM542\nM240 X450\nM240 Y400\nM228 P0 S1\nM227 P1 S1 G1000 F1000\nM601 P8 S60 F5\nM240 S450\nM601 P2 S60 F5\nM240 X400\nM240 Y450\nM543\nM107\n^InitComplete"
         },
         "machine_width": {
             "default_value": 152.4        
         },
         "material_diameter": {
             "default_value": 1.75
+        },
+        "material_flow": {
+            "default_value": 105
         },
         "retraction_amount": {
             "default_value": 0.05
