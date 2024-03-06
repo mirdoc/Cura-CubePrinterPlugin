@@ -76,14 +76,14 @@
         "material_diameter": {
             "default_value": 1.75
         },
+        "material_flow": {
+            "default_value": 105
+        },
         "retraction_amount": {
             "default_value": 0.05
         },
         "speed_print": {
             "default_value": 60
-        },
-        "wall_transition_length": {
-            "default_value": 0.35
         }            
     },
     "version": 2
