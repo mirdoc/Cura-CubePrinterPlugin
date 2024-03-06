@@ -59,7 +59,7 @@
             "default_value": 0.35
         },
         "machine_start_gcode": {
-            "default_value": "^Firmware:V2.00\n^DRM:000000000000\n^Cube:2\n^Type:0\n^Time:15\n^Material: 1\nM107\nM204 S10\nM104 {print_temperature} P0\nG4 P40\nM228 P0 S100\nM103\n^InitComplete"
+            "default_value": "^Firmware:V2.00\n^DRM:000000000000\n^Cube:2\n^Type:0\n^Time:15\n^Material: 1\nM227 P100 S100\nM107\nM204 S10\nM104 {print_temperature} P0\nG4 P40\nM228 P0 S100\nM103\n^InitComplete"
         },
         "machine_width": {
             "default_value": 140        
