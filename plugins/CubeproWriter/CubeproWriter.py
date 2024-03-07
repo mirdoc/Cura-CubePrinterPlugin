@@ -182,6 +182,10 @@ class CubeproWriter(QObject, MeshWriter):
         
         G_feedrate = 0
         G_feedrate_present = False
+        
+        # The Cube 1 and Cube 2 printers don't seem to support the P paramater on M104 set extruder temp 
+        # commands, so we need to handle this condition differently in the M104 rewriter routine
+        M104_P_support = self._plugin_name != "CubeWriter"
 
         for line in gcode_in:
             line = line.strip()
@@ -252,21 +256,26 @@ class CubeproWriter(QObject, MeshWriter):
             # CubePro sets extruder temperature using M104, M204, and M304 for each extruder respectively and each command has 
             # an optional P1 parameter which if omitted will trigger a pause until desired temperature is reached.
             elif line.startswith("M104") or line.startswith("M109"):
-                # if P parameter is present then this line is probably from start/end gcode so strip out P0 and leave P1 alone
-                if "P0" in line:
-                    line = line[:-3]
-                elif "P1" not in line:
-                    extruder_temp = 0
-                    extruder_num = active_extruder
-                    gcode_args = line.split(" ")
-                    for gcode_arg in gcode_args:
-                        if gcode_arg[0] == "S":                                   
-                            extruder_temp = int(gcode_arg[1:])
-                        elif gcode_arg[0] == "T":
-                            extruder_num = int(gcode_arg[1]) + 1
-                    add_P1 = (line[3] == "4") # if this is M104 then add P1
-                    line = f"M{extruder_num}04 S{extruder_temp}"
-                    if add_P1: 
+                extruder_temp = 0
+                extruder_num = active_extruder
+                wait_for_temp = line[3] == "9" # M109 = wait for temp
+                
+                gcode_args = line.split(" ")
+                for gcode_arg in gcode_args:
+                    if gcode_arg[0] == "S":                                   
+                        extruder_temp = round(float(gcode_arg[1:]))
+                    elif gcode_arg[0] == "T":
+                        extruder_num = int(gcode_arg[1]) + 1
+                    elif gcode_arg[0] == "P":
+                        wait_for_temp = gcode_arg[1] == "0"
+
+                line = f"M{extruder_num}04 S{extruder_temp:d}"
+                
+                if wait_for_temp:
+                    if not M104_P_support:
+                        line += f"{_newline}G4 P40" # P unsupported so just add a pause with G4
+                else:
+                    if M104_P_support:
                         line += " P1"
             
             # M106 sets fan speed with S<int> parameter which has a range of 0-255. CubePro uses a P<int> parameter with a range 
