@@ -68,6 +68,10 @@ class CubeproWriter(QObject, MeshWriter):
                 "PETG": {
                     "material_code": "259",     # PETG - use ABS Black **EXPERIMENTAL**
                     "gcode_M240_param": 1400
+                },
+                "ASA": {
+                    "material_code": "259",     # ASA - use ABS Black **EXPERIMENTAL**
+                    "gcode_M240_param": 1400
                 }
             },
 
@@ -168,6 +172,10 @@ class CubeproWriter(QObject, MeshWriter):
         application = CuraApplication.getInstance()
         global_stack = application.getMachineManager().activeMachine
         extruders = application.getExtruderManager().getUsedExtruderStacks()
+        extruders_index = dict()
+        for x in extruders:            
+            Logger.log("i", self._plugin_name + F" [#{int(x.name[-1:])} of {len(extruders)}] - id:'{x.id}', name: '{x.name}': materialID: '{x.material}', material: '{x.material.getMetaDataEntry('material')}'")
+            extruders_index[int(x.name[-1:])] = x # TODO: fix the hack, as only one extruder may be returned in extruders[]
         
         print_time_mins = round(float(application.getPrintInformation().currentPrintTime.getDisplayString(DurationFormat.Format.Seconds)) / 60 * _print_time_correction_factor)
         
@@ -214,8 +222,8 @@ class CubeproWriter(QObject, MeshWriter):
                 
                 elif line.startswith("^MaterialCode"):
                     extruder_num = int(line[14])
-                    if extruder_num <= len(extruders) and extruders[extruder_num - 1].isEnabled:
-                        material_mapped = self._material_map.get(extruders[extruder_num - 1].material.getMetaDataEntry("material"))
+                    if extruder_num in extruders_index and extruders_index[extruder_num].isEnabled:
+                        material_mapped = self._material_map.get(extruders_index[extruder_num].material.getMetaDataEntry("material"))
                         if material_mapped is None:
                             error_message = self._plugin_name + " - Unsupported filament type selected."
                             Logger.log("e", error_message)
@@ -223,6 +231,7 @@ class CubeproWriter(QObject, MeshWriter):
                             return False
                         
                         line = f"^MaterialCodeE{extruder_num}:{material_mapped['material_code']}"
+                        Logger.log("i", self._plugin_name + F" - Setting 'MaterialCodeE{extruder_num}' to '{material_mapped['material_code']}'")
 
                 elif line.startswith("^MaterialLength"):
                     extruder_num = int(line[16])
