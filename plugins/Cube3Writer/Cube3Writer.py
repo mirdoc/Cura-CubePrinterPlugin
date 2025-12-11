@@ -25,6 +25,7 @@ from UM.Logger import Logger
 from UM.Mesh.MeshWriter import MeshWriter
 
 from UM.PluginRegistry import PluginRegistry
+from UM.Scene.SceneNode import SceneNode #For typing.
 
 from cura.Utils.Threading import call_on_qt_thread
 from PyQt6.QtCore import QObject
@@ -60,7 +61,7 @@ class Cube3Writer(QObject, MeshWriter):
         }        
         
     @call_on_qt_thread
-    def write(self, stream: BufferedIOBase, nodes, mode=MeshWriter.OutputMode.BinaryMode) -> bool:
+    def write(self, stream: BufferedIOBase, nodes: List[SceneNode], mode=MeshWriter.OutputMode.BinaryMode, **kwargs) -> bool:
         try:
             # We will use the CubeproWriter plugin to generate the output we need
             cubepro_writer = PluginRegistry.getInstance().getPluginObject("CubeproWriter")
