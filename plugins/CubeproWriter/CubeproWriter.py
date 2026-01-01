@@ -26,6 +26,7 @@ from UM.Mesh.MeshWriter import MeshWriter
 
 from UM.Qt.Duration import DurationFormat
 from UM.PluginRegistry import PluginRegistry
+from UM.Scene.SceneNode import SceneNode #For typing.
 
 from cura.CuraApplication import CuraApplication
 from cura.Utils.Threading import call_on_qt_thread
@@ -107,7 +108,7 @@ class CubeproWriter(QObject, MeshWriter):
     ##  Called to output the file
     ######################################################################
     @call_on_qt_thread
-    def write(self, stream: BufferedIOBase, nodes, mode=MeshWriter.OutputMode.BinaryMode) -> bool:
+    def write(self, stream: BufferedIOBase, nodes: List[SceneNode], mode=MeshWriter.OutputMode.BinaryMode, **kwargs) -> bool:
         try:
             self.setParams(self._params)
             return self.processOutput(stream, nodes, mode)
