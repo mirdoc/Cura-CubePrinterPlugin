@@ -37,7 +37,7 @@ class CubexWriter(QObject, MeshWriter):
     def __init__(self) -> None:
         super().__init__(add_to_recent_files = False)
 
-        self._version = "0.2.5"
+        self._version = "0.2.6"
         self._plugin_name = "CubexWriter"
         
         self._params = {
