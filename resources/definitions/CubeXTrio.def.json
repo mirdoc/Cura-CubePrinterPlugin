@@ -45,7 +45,7 @@
             "default_value": 240
         },
         "machine_extruder_count": { 
-            "default_value": 2
+            "default_value": 3
         },
         "machine_end_gcode": {
             "default_value": ""
